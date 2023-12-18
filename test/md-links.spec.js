@@ -1,10 +1,19 @@
-const mdLinks = require('../');
+const { mdLinks } = require('../src/index.js');
 
 
 describe('mdLinks', () => {
 
-  it('should...', () => {
-    console.log('FIX ME!');
+  it('mdLinks should resolve array of objects', () => {
+    const result = [
+      {
+        href: 'https://nodejs.org',
+        text: 'node',
+        file: 'test.md'
+      }]
+   mdLinks('./test.md')
+   .then((res) => {
+    expect(res).toEqual(result)
+   })
   });
 
 });
