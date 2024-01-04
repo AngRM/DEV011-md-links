@@ -2,6 +2,8 @@ const path = require("path");
 const fs = require("fs");
 const { readFile } = require("fs/promises");
 const { error } = require("console");
+const axios = require('axios');
+
 
 //Funcion para saber si es absoluta la dirreción con path https://nodejs.org/api/path.html#pathisabsolutepath
 exports.esAbsoluto = (relativePath) => {
@@ -33,7 +35,6 @@ exports.esAbsoluto = (relativePath) => {
   exports.leerArchivo = (absolutePath) => {
     return readFile(absolutePath, { encoding: 'utf8' })
     .then(contents => {
-      console.log(contents);
       return contents;
     })
     .catch(err => {
@@ -44,7 +45,7 @@ exports.esAbsoluto = (relativePath) => {
 
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
   //https://regex101.com
-  exports.buscarlinks = (valor,absolutePath) =>{
+  exports.buscarlinks = (valor, absolutePath) =>{
     const ubicacion = path.basename(absolutePath);
     const regex1 = /(?=\[([^\]]*)\]\((https?:\/\/[^\s)]+)\))/g;
 
@@ -66,3 +67,51 @@ exports.esAbsoluto = (relativePath) => {
 
   };
     
+  exports.obtenerCodigosDeEstado = (urls) => {
+    const promesas = urls.map(function(objeto){
+      return axios.head(objeto.href)
+        .then(response => {
+          objeto.status = response.status;
+          objeto.ok = "Ok";
+           if(response.status === 200){
+            objeto.ok == "Ok";
+          }else{
+            objeto.ok = "Fail";
+          }
+          return objeto;
+         // return { url: objeto.url, statusCode: response.status };
+        })
+        .catch(error => {
+          objeto.status = error.response.status;
+          objeto.ok = "Fail";
+          //return { url: objeto.url, statusCode: undefined, error: error.message };
+          return objeto;
+        });
+    });
+  
+    return Promise.all(promesas);
+  };
+
+  exports.estadisticas = (urls) => {
+
+    const noRepetidos = urls.filter((elemento, index, arreglo) =>
+    arreglo.findIndex(e => e["href"] === elemento["href"]) === index);
+
+    const unicos = noRepetidos.length; 
+    const total = urls.length;
+
+    return {
+      Total: total,
+      Unique: unicos
+    }
+  }
+
+  exports.estadisticasValidadas = (urlsV) => {
+    const rotos = urlsV.filter((link) => link.ok === "Fail");
+
+    return{
+      ...this.estadisticas(urlsV),
+      Broken: rotos.length
+    }
+  }
+  
