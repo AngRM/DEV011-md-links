@@ -12,16 +12,16 @@ exports.mdLinks = (path, validate, stats) => {
     }
 
     if (verificarExistencia(pathAbsoluto) == false) {
-        console.log("La Ruta no existe. por favor intente de nuevo");
-        return reject("La Ruta no existe. por favor intente de nuevo");
+        console.log("La Ruta no existe. Por favor, intente de nuevo.");
+        return reject("La Ruta no existe. Por favor, intente de nuevo.");
     }
 
     if (esMarkdown(pathAbsoluto) == false) {
-        console.log("El archivo no es un archivo markdown");
-        return reject("El archivo no es un archivo markdown");
+        console.log("El archivo no es un archivo Markdown");
+        return reject("El archivo no es un archivo Markdown");
     }
 
-    // Aquí debes utilizar la función leerArchivo importada
+    // Se usa la función leerArchivo previamente importada.
     leerArchivo(pathAbsoluto).then((res) => {
         // Hacer algo después de leer el archivo
         const array = buscarlinks(res,pathAbsoluto);

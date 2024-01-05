@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const { readFile } = require("fs/promises");
-const { error } = require("console");
+const { error, clear } = require("console");
 const axios = require('axios');
 
 
@@ -45,28 +45,30 @@ exports.esAbsoluto = (relativePath) => {
 
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec
   //https://regex101.com
-  exports.buscarlinks = (valor, absolutePath) =>{
+  exports.buscarlinks = (valor, absolutePath) => {
     const ubicacion = path.basename(absolutePath);
     const regex1 = /(?=\[([^\]]*)\]\((https?:\/\/[^\s)]+)\))/g;
-
-    linkes = [];
+  
+    const linkes = [];
     let resultado;
-    while ((resultado = regex1.exec(valor)) !== null){
-        const objeto = {
-            href: resultado[2],
-            text: resultado[1],
-            file: ubicacion,
-          };
-            linkes.push(objeto);
-
-            if (resultado[0] === '') {
-              regex1.lastIndex++;
-            }
+  
+    while ((resultado = regex1.exec(valor)) !== null) {
+      const objeto = {
+        href: resultado[2],
+        text: resultado[1],
+        file: ubicacion,
+      };
+  
+      linkes.push(objeto);
+  
+      if (resultado[0] === '') {
+        regex1.lastIndex++;
+      }
     }
+  
     return linkes;
-
   };
-    
+  
   exports.obtenerCodigosDeEstado = (urls) => {
     const promesas = urls.map(function(objeto){
       return axios.head(objeto.href)
