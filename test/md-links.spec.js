@@ -27,123 +27,54 @@ describe('mdLinks', () => {
       }]
    mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md", true)
    .then((res) => {
-    expect(res).toEqual(result)
+    expect(res).toEqual(resultValidate)
    })
   });
   
-  // it('mdLinks should resolve empty array for a file with no links', () => {
-  //   const result = [];
-  //   return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md")
-  //     .then((res) => {
-  //       expect(res).toEqual(result);
-  //     });
-  // });
+  it('mdLinks should resolve empty array for a file with no links', () => {
+    const result0 = [];
+    return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/README.md")
+      .then((res) => {
+        expect(res).toEqual(result0);
+      });
+  });
 
   it('mdLinks should reject with an error for a non-existing file', () => {
-    return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md")
+    return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.m")
       .catch((error) => {
-        expect(error).toEqual("La Ruta no existe por favor intente de nuevo");
+        expect(error).toEqual("La Ruta no existe. Por favor, intente de nuevo.");
       });
   });
 
   it('mdLinks should reject with an error for a non-markdown file', () => {
-    return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md")
+    return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/md-links.spec.js")
       .catch((error) => {
-        expect(error).toEqual("El archivo no es un archivo markdown");
+        expect(error).toEqual("El archivo no es un archivo Markdown");
       });
   });
 
-  // it('mdLinks with stats should resolve statistics object', () => {
-  //   const resultStats = {
-  //     Total: 3,
-  //     Unique: 2
-  //   };
-  //   return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md", false, true)
-  //     .then((res) => {
-  //       expect(res).toEqual(resultStats);
-  //     });
-  // });
-
-  // it('mdLinks with validate and stats should resolve validated statistics object', () => {
-  //   const resultValidateStats = {
-  //     Total: 3,
-  //     Unique: 2,
-  //     Broken: 1
-  //   };
-  //   return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md", true, true)
-  //     .then((res) => {
-  //       expect(res).toEqual(resultValidateStats);
-  //     });
-  // });
-  describe('mdLinks', () => {
-
-    it('mdLinks should reject with an error for an invalid markdown file', () => {
-      return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md")
-        .catch((error) => {
-          expect(error).toEqual("El archivo no es un archivo markdown");
-        });
-    });
-  
-    it('mdLinks should reject with an error for a non-existent file', () => {
-      return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md")
-        .catch((error) => {
-          expect(error).toEqual("La Ruta no existe. por favor intente de nuevo");
-        });
-    });
-  
-    // it('mdLinks with stats should resolve statistics object with zero Total and Unique for an empty markdown file', () => {
-    //   const resultEmptyStats = {
-    //     Total: 0,
-    //     Unique: 0
-    //   };
-    //   return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md", false, true)
-    //     .then((res) => {
-    //       expect(res).toEqual(resultEmptyStats);
-    //     });
-    // });
-  
-    // it('mdLinks with validate and stats should resolve statistics object with zero Total, Unique, and Broken for an empty markdown file', () => {
-    //   const resultEmptyStatsValidate = {
-    //     Total: 0,
-    //     Unique: 0,
-    //     Broken: 0
-    //   };
-    //   return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md", true, true)
-    //     .then((res) => {
-    //       expect(res).toEqual(resultEmptyStatsValidate);
-    //     });
-    // });
-  
-    // it('mdLinks with stats should resolve statistics object for a markdown file with no links', () => {
-    //   const resultStatsNoLinks = {
-    //     Total: 0,
-    //     Unique: 0
-    //   };
-    //   return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md", false, true)
-    //     .then((res) => {
-    //       expect(res).toEqual(resultStatsNoLinks);
-    //     });
-    // });
-  
-    // it('mdLinks with validate should resolve array of objects', () => {
-    //   const resultValidate = [
-    //     {
-    //       href: 'https://nodejs.org/',
-    //       text: 'Node.js',
-    //       file: 'test.md',
-    //       status: 200, // Puedes incluir este si lo necesitas
-    //       ok: 'Ok'    // Puedes incluir este si lo necesitas
-    //     }
-    //   ];
-    
-    //   return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/test.md", true)
-    //     .then((res) => {
-    //       expect(res).toEqual(resultValidate);
-    //     });
-    // });
-  
-    // Add more test cases based on your specific scenarios and edge cases.
-  
+  it('mdLinks with stats should resolve statistics object', () => {
+    const resultStats = {
+      Total: 3,
+      Unique: 2
+    };
+    return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/prueba.md", false, true)
+      .then((res) => {
+        expect(res).toEqual(resultStats);
+      });
   });
+
+  it('mdLinks with validate and stats should resolve validated statistics object', () => {
+    const resultValidateStats = {
+      Total: 3,
+      Unique: 2,
+      Broken: 1
+    };
+    return mdLinks("C:/Users/HP/Desktop/mdLinks/DEV011-md-links/test/prueba.md", true, true)
+      .then((res) => {
+        expect(res).toEqual(resultValidateStats);
+      });
+  });
+ 
   
 });

@@ -47,7 +47,7 @@ exports.esAbsoluto = (relativePath) => {
   //https://regex101.com
   exports.buscarlinks = (valor, absolutePath) => {
     const ubicacion = path.basename(absolutePath);
-    const regex1 = /(?=\[([^\]]*)\]\((https?:\/\/[^\s)]+)\))/g;
+    const regex1 = /(?=\[([^\]]*)\]\((http?:\/\/[^\s)]+)\))/g;
   
     const linkes = [];
     let resultado;
