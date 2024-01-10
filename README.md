@@ -69,7 +69,7 @@ Copy code
     "status": 200,
     "ok": "Ok"
   },
-  // Otros enlaces...
+
 ]
 
 ## Estadísticas de enlaces:
@@ -91,8 +91,7 @@ Copy code
   "Broken": 2
 }
 
-
-Este código en Node.js ofrece una herramienta de línea de comandos (mdLinks) diseñada para analizar archivos Markdown y extraer información sobre los enlaces presentes en ellos. El código está dividido en tres archivos principales:
+El código está dividido en tres archivos principales:
 
 index.js: Este archivo actúa como el punto de entrada y define la función mdLinks. Esta función toma una ruta de archivo, así como opciones adicionales para validar los enlaces (validate) y obtener estadísticas (stats). Utiliza funciones del archivo functions.js para realizar tareas como verificar la existencia del archivo, leer su contenido, buscar enlaces y, en caso necesario, validar los enlaces y proporcionar estadísticas.
 
